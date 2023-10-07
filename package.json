@@ -1,0 +1,24 @@
+{
+  "name": "platform",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "element-plus": "^2.3.14",
+    "element-plus-generator": "^1.2.16",
+    "element-ui": "^2.15.14",
+    "form-gen-parser": "^1.0.3",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "vite": "^4.4.9",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
