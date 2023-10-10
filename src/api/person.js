@@ -4,16 +4,13 @@ import {BaseURL} from './dev.js';
 const instance = axios.create({
   baseURL: BaseURL, // 设置请求的域名
   headers: {
-    // 'Corpus-Token':"",
+    // 'Corpus-Token':"1",
     'Content-Type': 'application/json' // 设置默认的请求头
   }
 });
 
 // 定义请求拦截器
 instance.interceptors.request.use(function (config) {
-  
-  config.headers['Corpus-Token'] = localStorage.getItem('Corpus-Token');
-  console.log(config.headers['Corpus-Token'])
   // 在发送请求之前可以进行一些操作，如添加请求头、身份验证等
   return config;
 }, function (error) {

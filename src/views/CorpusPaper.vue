@@ -36,7 +36,7 @@ import Paper from '../views/corpus.vue'
 .el-main {
     background-color: #E9EEF3;
     color: #333;
-    text-align: center;
+    /* text-align: center; */
     line-height: 160px;
 }
 
