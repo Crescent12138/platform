@@ -17,7 +17,9 @@
 <script >
 import { createSimpleExpression } from '@vue/compiler-core';
 import { postRequest } from '../api/paper'
-import { ref } from 'vue'
+import { ref, h } from 'vue'
+// import { ref, h } from 'vue'
+import { ElNotification } from 'element-plus'
 export default {
   data() {
     return {
@@ -38,13 +40,19 @@ export default {
     this.selectNextQuestion();
   },
   created() {
-    // this.selectNextQuestion();
   },
   methods: {
     async selectNextQuestion() {
+
       this.loading_status = true
       postRequest('/paper/selectNextQuestion', {}).then((data) => {
-        console.log(data.data.tmp)
+        if (data.code != 200) {
+          ElNotification({
+            title: '异常',
+            message: h('i', { style: 'color: teal' }, data.message),
+          });
+        }
+        console.log(data);
         this.cid = ref(data.data.cid);
         this.cids = data.data.cids
         this.is_test = data.data.is_test
@@ -81,7 +89,6 @@ export default {
         this.cid = ref(data.data.data[0])
         this.numbers = 1;
         this.is_test = false
-
         postRequest('/paper/initAns', { "num": this.numbers, "cid": this.cid }).then((data) => {
           if (typeof data.data.text !== 'undefined') {
             this.show_text = ref(data.data.text + "___");
@@ -91,75 +98,87 @@ export default {
         });
       });
     },
-    async splitCorpus() {
-      this.loading_status = true;
-      if (this.is_finish) {
-        if (this.is_test) {
-          await this.getForm();
-          return;
-        } else {
-          this.numbers = 1;
-          this.nex += 1
-          if (nex >= this.cids) {
-            console.log("已完成");
-            this.loading_status = false;
-            return;
-          }
-          this.cid = ref(this.cids[nex]);
-        }
-      }
-      // console.log(444)
-      postRequest('/paper/initAns', { "num": this.numbers, "cid": this.cid }).then((data) => {
-        if (typeof data.data.text !== 'undefined') {
-          this.show_text = ref(data.data.text + "___");
-        }
-        this.is_test = data.data.is_test;
-        this.is_finish = ref(data.data.is_finish);
-        this.loading_status = false;
-      });
-    },
+    // async splitCorpus() {
+    //   this.loading_status = true;
+    //   if (this.is_finish) {
+    //     if (this.is_test) {
+    //       await this.getForm();
+    //       return;
+    //     } else {
+    //       this.numbers = 1;
+    //       this.nex += 1
+    //       console.log(this.cids.length())
+    //       if (this.nex >= this.cids.length()) {
+    //         console.log("已完成");
+    //         this.loading_status = false;
+    //         return;
+    //       }
+    //       this.cid = ref(this.cids[this.nex]);
+    //     }
+    //   }
+    //   // console.log(444)
+    //   postRequest('/paper/initAns', { "num": this.numbers, "cid": this.cid }).then((data) => {
+    //     if (typeof data.data.text !== 'undefined') {
+    //       this.show_text = ref(data.data.text + "___");
+    //     }
+    //     this.is_test = data.data.is_test;
+    //     this.is_finish = ref(data.data.is_finish);
+    //     this.loading_status = false;
+    //   });
+    // },
     async clickAns() {
       this.loading_status = true;
       postRequest('/paper/updateAns', { "num": this.numbers, "cid": this.cid, "corpus": this.back }).then((data) => {
-        if (data.success == false) {
-          console.log("失败");
+        if (typeof data.success == 'undefined' || data.success == false) {
+          ElNotification({
+            title: '频繁提交',
+            message: h('i', { style: 'color: teal' }, '请稍后'),
+          });
           this.loading_status = false;
         } else {
           this.back = "";
           this.numbers += 1;
           if (this.is_finish) {
             if (this.is_test) {
-              this.$alert('已完成模拟测试，接下来是正式回答', {
-                confirmButtonText: '确定',
-                callback: action => {
-                  this.$message({
-                    type: 'info',
-                    message: `action: ${action}`
-                  });
-                }
+              ElNotification({
+                title: '已完成模拟测试，接下来是正式回答',
+                message: h('i', { style: 'color: teal' }, '等待跳转。。。'),
               });
+              // this.$alert('已完成模拟测试，接下来是正式回答', {
+              //   confirmButtonText: '确定',
+              //   callback: action => {
+              //     this.$message({
+              //       type: 'info',
+              //       message: `action: ${action}`
+              //     });
+              //   }
+              // });
               this.getForm();
-                return;
-              } else {
+              return;
+            } else {
               this.numbers = 1;
               this.nex += 1
-              if (nex >= this.cids.length) {
-                this.$alert('已完成所有测试，感谢您的参与', {
-                confirmButtonText: '确定',
-                callback: action => {
-                  this.$message({
-                    type: 'info',
-                    message: `action: ${action}`
-                  });
-                }
-              });
+              if (this.nex >= this.cids.length) {
+                ElNotification({
+                  title: '致谢',
+                  message: h('i', { style: 'color: teal' }, '已完成所有测试，感谢您的参与'),
+                });
+         
+                // this.$alert('已完成所有测试，感谢您的参与', {
+                //   confirmButtonText: '确定',
+                //   callback: action => {
+                //     this.$message({
+                //       type: 'info',
+                //       message: `action: ${action}`
+                //     });
+                //   }
+                // });
                 this.loading_status = false;
                 return;
               }
-              this.cid = ref(this.cids[nex]);
+              this.cid = ref(this.cids[this.nex]);
             }
           }
-          console.log(111)
           postRequest('/paper/initAns', { "num": this.numbers, "cid": this.cid }).then((data) => {
             console.log(data)
             if (typeof data.data.text !== 'undefined') {
@@ -221,4 +240,5 @@ export default {
 
 .clearfix:after {
   clear: both
-}</style>
+}
+</style>

@@ -461,6 +461,9 @@
 <script>
 import Heads from "../components/Head.vue";
 import { postRequest } from '../api/paper';
+import { ref, h } from 'vue'
+import { ElNotification } from 'element-plus'
+
 export default {
 
   data() {
@@ -579,6 +582,7 @@ export default {
     };
   },
   methods: {
+
     onSubmit() {
       postRequest('/person/receive', {
         "name": this.form.name,
@@ -586,17 +590,19 @@ export default {
       }).then((data) => {
         // console.log(data);
         localStorage.setItem('Corpus-Token', data.data.id);
-        
+        ElNotification({
+          title: '提交成功',
+          message: h('i', { style: 'color: teal' }, '等待跳转。。。'),
+        });
         setTimeout(function () {
-          this.$notify({
-          title: '成功',
-          message: '提交成功，等待跳转',
-          type: 'success'
-        });
-        }, 5000).then(()=>{
+
           window.location.href = '/rule';
-        });
-        
+        }, 3000)
+
+          ;
+
+
+
       });
 
     },

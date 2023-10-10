@@ -1,5 +1,10 @@
 import axios from 'axios';
 import {BaseURL} from './dev.js';
+import { ref, h } from 'vue'
+import { ElNotification } from 'element-plus'
+// import Vue from 'vue'
+// import ElementUI from 'element-ui'
+// import locale from 'element-ui/lib/locale/lang/en'
 // 创建自定义的Axios实例
 const instance = axios.create({
   baseURL: BaseURL, // 设置请求的域名
@@ -34,6 +39,21 @@ instance.interceptors.response.use(function (response) {
 export function postRequest(url, data) {
   return instance.post(url, data)
     .then(function (response) {
+      if(typeof response.data.success == 'undefined'){
+        ElNotification({
+          title: '频繁提交',
+          message: h('i', { style: 'color: teal' }, '请稍后')
+      });
+      return
+    }
+      if(response.data.code != 200){
+          if(response.data.code == 210){
+            // this.$message.error(response.data.message);
+              window.location.href = '/formDate';
+
+          }
+        return ;
+      }
       return response.data;
     })
     .catch(function (error) {
