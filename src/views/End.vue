@@ -3,29 +3,29 @@
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span style="font-family: font-family: SimHei, Arial, sans-serif; font-size: 36px; 
-                    font-weight: bold;;">测试规则</span>
-                <!-- <el-button style="float: right; padding: 3px " type="text">操作按钮</el-button> -->
+                    font-weight: bold;;">致谢</span>
             </div>
             <div class="text item">
-                您需要根据已知信息预测下一个即将出现的词，并填在下方文本框中。本次测试并无固定答案，请根据您的判断放心填写。
+                感谢您的参与，我们的工作人员会主动联系您并发放测试报酬，请您耐心等待。
             </div>
-            <div>
-                <el-button @click="onNext">开始答题</el-button>
+            <div class="text item">
+                联系地址：广西大学文学院
+            </div>
+            <div class="text item">
+                <!-- <br/> -->
+                广西大学语言认知实验室；
+            </div>
+            <div class="text item">
+                联系电话：12312312312
             </div>
         </el-card>
     </div>
 </template>
-
 <script>
 export default {
     data() {
     },
     methods: {
-        onNext() {
-            console.log(this.form);
-            console.log("submit!");
-            window.location.href = '/paper';
-        },
     },
 }
 </script>

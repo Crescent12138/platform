@@ -515,7 +515,9 @@ export default {
         touch_language_list: [],
         map_read_language_percent: [],
         map_interacton_language_percent: [],
-        map_cultural_identity_percent: [],
+        map_cultural_identity_percent: [
+         
+        ],
         education_time: "",
         academic_credentials: "",
         come_to_china: "",

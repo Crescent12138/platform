@@ -45,6 +45,22 @@ const router = createRouter({
       path:'/paper',
       name: 'paper',
       component: () => import('../views/CorpusPaper.vue')
+    },{
+      path:'/zh/formDate',
+      name: 'test',
+      component: () => import('../views/FormV.vue')
+    },{
+      path:'/en/formDate',
+      name: 'formE',
+      component: () => import('../views/FormE.vue')
+    },{
+      path:'/',
+      name:'home',
+      component: () => import('../views/Start.vue')
+    },{
+      path:'/over',
+      name:'over',
+      component: () => import('../views/Endplatform.vue')
     }
   ]
 })

@@ -1,35 +1,40 @@
 <script setup>
-import  Table  from '../views/PersonQuery.vue'
-
+import  Desc  from '../views/End.vue'
 </script>
-
 <template>
     <div>
         <el-container>
-  <el-header>语言经验和汉语水平问卷</el-header>
-  <el-main><Table></Table></el-main>
-  <el-footer>Footer</el-footer>
-</el-container>
+            <el-header>分词预测平台</el-header>
+            <el-main>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <Desc></Desc>
+                </div>
+                
+                <!-- <Table></Table> -->
+            </el-main>
+            <!-- <el-footer>Footer</el-footer> -->
+        </el-container>
     </div>
 </template>
+
 <style>
   .el-header, .el-footer {
     background-color: #B3C0D1;
-    /* color: #333; */
+    color: #333;
     text-align: center;
     line-height: 60px;
   }
   
   .el-aside {
     background-color: #D3DCE6;
-    /* color: #333; */
+    color: #333;
     text-align: center;
     line-height: 200px;
   }
   
   .el-main {
-    background-color: #E9EEF3;
-    /* color: #333; */
+    /* background-color: #E9EEF3; */
+    color: #333;
     text-align: center;
     line-height: 160px;
   }

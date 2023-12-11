@@ -4,7 +4,7 @@ import  Desc  from '../views/RuleDescription.vue'
 <template>
     <div>
         <el-container>
-            <el-header>试题规则介绍</el-header>
+            <el-header>分词预测平台</el-header>
             <el-main>
                 <div style="display: flex; justify-content: center; align-items: center;">
                     <Desc></Desc>
@@ -12,7 +12,7 @@ import  Desc  from '../views/RuleDescription.vue'
                 
                 <!-- <Table></Table> -->
             </el-main>
-            <el-footer>Footer</el-footer>
+            <!-- <el-footer>Footer</el-footer> -->
         </el-container>
     </div>
 </template>
@@ -33,7 +33,7 @@ import  Desc  from '../views/RuleDescription.vue'
   }
   
   .el-main {
-    background-color: #E9EEF3;
+    /* background-color: #E9EEF3; */
     color: #333;
     text-align: center;
     line-height: 160px;

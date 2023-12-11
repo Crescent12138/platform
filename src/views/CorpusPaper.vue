@@ -1,19 +1,20 @@
 <script setup>
 import Paper from '../views/corpus.vue'
-
+import {is_test} from '../shared/const.js'
 </script>
 
 <template>
     <div>
         <el-container>
-            <el-header>语言经验和汉语水平问卷</el-header>
+       
+            <el-header v-if="is_test" :key="1">练习题</el-header>
+            <el-header v-else >正式测试题</el-header>
+           
             <el-main >
                 <div style="display: flex; justify-content: center; align-items: center;">
                     <Paper/>
                 </div>
-                <!-- <Paper/> -->
             </el-main>
-            <el-footer>Footer</el-footer>
         </el-container>
     </div>
 </template>
@@ -21,21 +22,21 @@ import Paper from '../views/corpus.vue'
 .el-header,
 .el-footer {
     background-color: #B3C0D1;
-    color: #333;
+    /* color: #333; */
     text-align: center;
     line-height: 60px;
 }
 
 .el-aside {
     background-color: #D3DCE6;
-    color: #333;
+    /* color: #333; */
     text-align: center;
     line-height: 200px;
 }
 
 .el-main {
-    background-color: #E9EEF3;
-    color: #333;
+    /* background-color: #E9EEF3; */
+    /* color: #333; */
     /* text-align: center; */
     line-height: 160px;
 }
