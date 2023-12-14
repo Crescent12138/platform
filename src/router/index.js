@@ -61,6 +61,10 @@ const router = createRouter({
       path:'/over',
       name:'over',
       component: () => import('../views/Endplatform.vue')
+    },{
+      path:"/info",
+      name:"info",
+      component:()=> import('../views/platformInfo.vue')
     }
   ]
 })
